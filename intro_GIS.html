@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to Geographical Information Systems</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Benjamin Nowak, VetAgro Sup" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bn.css" type="text/css" />
+    <link rel="stylesheet" href="css/bn-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to Geographical Information Systems
+## Unit 655
+### Benjamin Nowak, VetAgro Sup
+### May-June 2022
+
+---
+
+
+background-color: #e76f51
+background-size: cover
+class: center, bottom, inverse
+
+# &lt;span style='font-size:55px'&gt; **What is GIS?** &lt;/span&gt;
+
+### A computer system to analyze and display spatial data&lt;br&gt;
+
+---
+
+# Projection
+
+- A 3D spherical surface cannot be converted to a 2D map without distortions
+  - *Such as trying to flatten the skin of an orange&lt;br&gt;(Picture: [Manson and Kernik](https://open.lib.umn.edu/mapping/chapter/3-scale-and-projections/))*
+
+&lt;center&gt;&lt;img src="fig/gis/goode.jpg" width=70%&gt;&lt;/img&gt;&lt;/center&gt;
+
+- It is also necessary to reflect the relief of the Earth's surface
+
+---
+
+# World projection
+
+.pull-left[
+####Mercator projection
+*Deformation increase with latitudes, with Greenland and Antarctica far bigger than reality*
+
+&lt;center&gt;&lt;img src="fig/gis/mercator.jfif" width=70%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+
+.pull-right[
+####Waterman "butterfly"
+*One of the projection with the least distortion*
+&lt;br&gt;&lt;br&gt;
+&lt;center&gt;&lt;img src="fig/gis/waterman.jfif" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+
+&lt;br&gt;
+**Pictures:** [Wikipedia](https://en.wikipedia.org/wiki/Azimuthal_equidistant_projection)
+
+---
+
+# World projection
+
+- Comparison of Tissot's indicatrix of deformation
+
+.pull-left[
+####Mercator projection
+
+&lt;center&gt;&lt;img src="fig/gis/mercator_tissot.png" width=70%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+.pull-right[
+####Waterman "butterfly"
+
+&lt;center&gt;&lt;img src="fig/gis/waterman_tissot.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+
+&lt;/br&gt;&lt;/br&gt;
+**Pictures:** [Wikipedia](https://en.wikipedia.org/wiki/Azimuthal_equidistant_projection)
+
+---
+
+# Local projection
+
+- Use of local projections to reduce distorsions
+
+&lt;center&gt;&lt;img src="fig/gis/local_noname.png" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+
+
+---
+
+# Local projection
+
+- Use of local projections to reduce distorsions
+
+&lt;center&gt;&lt;img src="fig/gis/local.png" width=65%&gt;&lt;/img&gt;&lt;/center&gt;
+
+
+---
+
+# Layers
+
+- With GIS, maps are made of a superposition of layers
+
+&lt;center&gt;&lt;img src="fig/gis/map_creation.gif" width=70%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Some basics for map creation
+
+.pull-left[
+&lt;br&gt;
+&lt;center&gt;&lt;img src="fig/gis/final_map.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+.pull-right[
+- Provide some context (municipalities borders, waterways...)
+  - *You may use a small map to localize your study area at bigger scale*
+
+- Maps need legend, scale bar and north arrow
+
+- Add title, ideally with a comment
+
+- Do not forget to quote data source
+]
+
+---
+
+
+# Not (only) for pretty maps...
+
+- Several geoprocessing operations may be performed for a single layer or between layers
+
+
+&lt;center&gt;&lt;img src="fig/gis/app_gis.gif" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+background-color: #e76f51
+background-size: cover
+class: center, bottom, inverse
+
+# &lt;span style='font-size:55px'&gt; **Layers in GIS** &lt;/span&gt;
+
+---
+
+# Two main type of layers
+
+.pull-left[
+ 
+ #### Raster
+ - Regular grid of cells&lt;br/&gt;or pixels
+ - One or multiple values per cell
+ 
+&lt;center&gt;&lt;img src="fig/gis/raster.png" width=80%&gt;&lt;/img&gt;&lt;/center&gt;
+
+]
+
+---
+
+# Examples of raster data
+- **Aerial photography:** Pixel values correspond to ground color
+
+&lt;img src="fig/gis/aerial.png" width=100%&gt;&lt;/img&gt;
+
+&lt;center&gt;&lt;i&gt;Comparison of Lempdes (63) between today and 1950&lt;/i&gt;&lt;/center&gt;
+&lt;center&gt;&lt;b&gt;Source: &lt;/b&gt;&lt;a href="https://remonterletemps.ign.fr/"&gt; remonterletemps.ign.fr &lt;/a&gt;&lt;/center&gt;
+
+---
+
+# Examples of raster data
+
+- **Remote sensing:** Multispectral images
+
+.pull-left[
+- Three outcomes for incoming solar radiation: absorption, reflection or transmission 
+
+- For each wavelength, reflectance (R) is calculated as follows:&lt;br&gt; 
+`$$R = \frac{\phi_r}{\phi_i}$$`
+]
+
+.pull-right[
+&lt;img src="fig/gis/rad.png" width=100%&gt;&lt;/img&gt;
+&lt;center&gt;&lt;b&gt;Dynamics of the luminous flux incoming on a leaf&lt;/b&gt;&lt;/center&gt;
+]
+
+---
+
+# Examples of raster data
+
+- **Remote sensing:** Multispectral images
+
+.pull-left[
+- Several satellites provide reflectance data at 10 to 30m resolution, such as [Landsat](https://landsat.gsfc.nasa.gov/) or [Sentinel-2](https://sentinel.esa.int/web/sentinel/missions/sentinel-2) 
+
+- Each raster may be processed alone or combined as a vegetation index like the Normalized Difference Vegetation Index (NDVI)
+`$$NDVI = \frac{R_{NIR}-R_{Red}}{R_{NIR}+R_{Red}}$$`
+]
+
+.pull-right[
+&lt;img src="fig/gis/NDVI.gif" width=100%&gt;&lt;/img&gt;
+&lt;center&gt;&lt;b&gt;Timelapse of NDVI evolution&lt;/b&gt;&lt;/center&gt;
+]
+
+---
+
+# Examples of raster data
+
+- **Digital Elevation Model (DEM):** Elevation data
+
+.pull-left[
+- A DEM is a raster of ground surface topography
+
+  - *Each cell gives the average elevation at a given position*
+
+]
+
+.pull-right[
+&lt;img src="fig/gis/elevation.png" width=100%&gt;&lt;/img&gt;
+]
+
+---
+
+# Examples of raster data
+
+- **Digital Elevation Model (DEM):** Elevation data
+
+.pull-left[
+- A DEM is a raster of ground surface topography
+
+
+- GIS can convert these data into raster of slope, exposure...
+
+  - ***On the right:*** *Each cell gives the main exposure at a given position*
+
+]
+
+.pull-right[
+&lt;img src="fig/gis/aspect.png" width=100%&gt;&lt;/img&gt;
+]
+
+---
+
+# Formats of raster layers
+
+- Raster geographic files are like **image files**
+
+- Thus the format of a raster file is often that of an image file (.tif, .ecw, .jpg, .png...)
+
+- But, in addition to the image data, the rasters have **positioning information**, which can be stored in a separate file or in the same file in a GeoTIFF format (.tif or .tiff)
+
+---
+
+# Two main type of layers
+.pull-left[
+ 
+ #### Raster
+ - Regular grid of cells&lt;br/&gt;or pixels
+ - One or multiple values per cell
+ 
+&lt;center&gt;&lt;img src="fig/gis/raster.png" width=80%&gt;&lt;/img&gt;&lt;/center&gt;
+
+]
+
+.pull-right[
+
+#### Vector
+- Set of geometric shapes (points, lines or polygons)
+- With an attribute table describing each item
+
+&lt;center&gt;&lt;img src="fig/gis/vectors.png" width=80% style="border:#e76f51; border-width:3px; border-style:solid;"&gt;&lt;/img&gt;&lt;/center&gt;
+
+
+]
+
+---
+
+
+
+# Examples of vector data
+
+- With vectors, the elementary spatial entities are not cells but geometric shapes: **points**, **lines** or **polygons**
+
+&lt;center&gt;&lt;img src="fig/gis/type.gif" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Examples of vector data
+
+- Variables of different types (numerical, factorial, text...) can be stored in **the attribute table** to define each item
+
+  - *One table per vector file, with one line per item*
+
+&lt;center&gt;&lt;img src="fig/gis/attribute.png" width=90%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Examples of vector data
+
+- Vectors are useful to make **choropleth map**, in which spatial units are colored or shaded to indicate the mean values of an indicator
+
+.pull-left[
+- First choropleth map: [Popular education in France](https://gallica.bnf.fr/ark:/12148/btv1b530830640) (Dupin, 1826)
+
+  - ***Legend:*** *From 1 pupil per 10 inhabitants to 1 pupil per 268 inhabitants from lightest to darkest*
+]
+
+.pull-right[
+&lt;img src="fig/gis/chloro.png" width=100%&gt;&lt;/img&gt;
+]
+---
+
+# Examples of vector data
+
+- Choropleth maps are well suited to show statistical values by administrative entity
+&lt;img src="fig/gis/cattle.png" width=100%&gt;&lt;/img&gt;
+
+---
+
+# Examples of vector data
+
+- The principal of choropleth maps may also be applied to point vectors
+  - *To produce a yield map, the attribute table provides estimated weight, moisture, working width...*
+
+
+&lt;center&gt;&lt;img src="fig/gis/yield.png" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Examples of vector data
+
+- With **a cartogram**, it is the size of the entities that is proportional to the mapped indicator
+
+
+&lt;center&gt;&lt;img src="fig/gis/cartogram.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Formats of vector layers
+
+- There are several formats for vector files
+  - *GeoJSON (.geojson, .json), GeoPackage (.gpkg), .kml and .kmz...*
+
+- The **shapefile** format is a popular vector data format developed and regulated by Esri
+
+- Each shapefile is composed of several files
+  - *.shp, .shx, .dbf (table of attribute), .prj (optional file with CRS)...*
+  
+  - *All files must be stored in the same folder, with the same name*
+
+---
+
+
+background-color: #e76f51
+background-size: cover
+class: center, bottom, inverse
+
+# &lt;span style='font-size:55px'&gt; **Some examples&lt;br&gt;of GIS software** &lt;/span&gt;
+
+---
+
+# Specialized softwares
+
+.pull-left[
+#### Free, open source
+&lt;br&gt;
+&lt;center&gt;&lt;img src="fig/gis/qgis.png" width=90%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+
+.pull-right[
+#### Commercial
+&lt;center&gt;&lt;img src="fig/gis/arcgis.png" width=70%&gt;&lt;/img&gt;&lt;/center&gt;
+]
+
+---
+
+# Non-specialized softwares
+
+&lt;center&gt;&lt;img src="fig/gis/r_ex.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+
+
+---
+
+# Cloud-based softwares
+
+&lt;center&gt;&lt;img src="fig/gis/gee2.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+background-color: #e76f51
+background-size: cover
+class: center, bottom, inverse
+
+# &lt;span style='font-size:55px'&gt; **An example of GIS application** &lt;/span&gt;
+
+### Adoption of cover crops in France&lt;br&gt;
+
+
+---
+
+# Goal of the study
+
+- Use of multispectral imagery to detect cover crops
+
+&lt;center&gt;&lt;img src="fig/gis/cover_pic.png" width=75%&gt;&lt;/img&gt;&lt;/center&gt;
+
+Nowak *et al.* (2022)
+
+---
+
+# Methodology
+
+- What is the best time to detect cover crops?
+
+&lt;center&gt;&lt;img src="fig/gis/cover_crop.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+
+---
+
+# Methodology
+
+- Border of the fields: Land Parcel Identification System of the Common Agricultural Policy
+  - *Filter for spring crops only*
+
+&lt;center&gt;&lt;img src="fig/gis/rpg.png" width=80%&gt;&lt;/img&gt;&lt;/center&gt;
+[**Picture:** Geoportail](https://www.geoportail.gouv.fr/)
+
+---
+
+# Methodology
+
+- NDVI extraction based on [Sentinel-2](https://sentinel.esa.int/web/sentinel/missions/sentinel-2) images with the [Google Earh Engine](https://earthengine.google.com/)
+
+&lt;center&gt;&lt;img src="fig/gis/data_extraction.png" width=100%&gt;&lt;/img&gt;&lt;/center&gt;
+[Nowak *et al.* (2021)](https://iopscience.iop.org/article/10.1088/1748-9326/ac007c#:~:text=At%20country%20scale%2C%20winter%20soil,at%20least%2050%25%20of%20vegetation.)
+
+---
+
+# Results
+
+- Map of the adoption of winter cover crops in France
+  - *~ 40% of fields with cover crops before spring crops*
+
+&lt;center&gt;&lt;img src="fig/gis/cover_map.png" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+[Nowak *et al.* (2022)](https://iopscience.iop.org/article/10.1088/1748-9326/ac007c#:~:text=At%20country%20scale%2C%20winter%20soil,at%20least%2050%25%20of%20vegetation.)
+
+---
+
+# Results
+
+- Analysis of adoption by crop
+  
+&lt;center&gt;&lt;img src="fig/gis/species.png" width=60%&gt;&lt;/img&gt;&lt;/center&gt;
+[Nowak *et al.* (2022)](https://iopscience.iop.org/article/10.1088/1748-9326/ac007c#:~:text=At%20country%20scale%2C%20winter%20soil,at%20least%2050%25%20of%20vegetation.)
+
+---
+
+# Data sources
+
+- Population of the Puy-de-Dôme (France) department: [Global Human Settlement Layer](https://ghsl.jrc.ec.europa.eu/), European Comission
+
+- Infrastructures: [BD TOPO](https://geoservices.ign.fr/documentation/donnees/vecteur/bdtopo), Institut national de l'information géographique et forestière (IGN)
+
+- Map visualization, with lot of different ressources available for France; [Géoportail](https://www.geoportail.gouv.fr/)
+
+---
+
+# Useful resources
+
+
+- [Learn how to make cartogram with R](https://www.r-graph-gallery.com/cartogram.html), The R Graph Gallery
+
+- [Making maps with R](https://bjnnowak.github.io/Lessons/2nd_session_R#1), Benjamin Nowak
+
+- [Handling Digital Elevation Model with Google Earth Engine](https://bjnnowak.netlify.app/2021/09/27/gee-terrain-features/), Benjamin Nowak
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
